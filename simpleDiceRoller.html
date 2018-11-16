@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Simple Dice Rolling App</title>
+	
+<style type="text/css">
+
+</style>	
+	
+	
+</head>
+<body>
+
+
+<canvas id="canvas">
+</canvas>
+
+<br>
+
+<button id="clear-btn">CLEAR</button>
+<button id="roll">Roll</button>
+<br>
+
+
+<span id="demo"></span>
+
+
+<script>
+//demo.innerHTML = variable; //used for testing output
+//let demo = document.getElementById("demo");
+
+
+const WIDTH = 200;
+const HEIGHT = 200;
+const cvs = document.querySelector("#canvas");
+	cvs.style.width  = `${WIDTH}px`;
+	cvs.style.height = `${HEIGHT}px`;
+	cvs.style.backgroundColor = "white";
+	cvs.style.border = "2px solid black";
+const ctx = cvs.getContext('2d');
+const clearBtn = document.getElementById("clear-btn");
+const roll = document.getElementById("roll");
+
+const die = {
+	history: [],
+
+
+
+};
+
+
+//functions
+
+const clearButton=function(){
+	ctx.clearRect(0,0,WIDTH, HEIGHT );
+};
+
+const dieRoll = function (){
+	return Math.floor((Math.random()*6)+1)
+};
+
+const main = function(){
+
+	die.history.push(dieRoll());
+};
+
+
+
+//event handlers
+clearBtn.addEventListener("click", clearButton, false);
+roll.addEventListener("click", main, false);
+
+
+
+
+</script>
+
+</body>
+</html>
