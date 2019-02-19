@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Simple Dice Rolling App</title>
+	
+<style type="text/css">
+
+canvas{
+
+/******** width/ height= 200/175 ******/
+	width: 100px;
+	height: 75px;
+}
+
+</style>	
+	
+	
+</head>
+<body>
+
+<div id="container">
+	
+	<div id="die1" class="diceModule">
+		<canvas id="canvas"></canvas>
+
+		<button id="clear-btn">CLEAR</button>
+
+		<button id="rollDice">Roll</button>
+	</div>
+
+</div>
+
+<span id="demo"></span>
+
+
+<script>
+//demo.innerHTML = variable; //used for testing output
+//let demo = document.getElementById("demo");
+
+
+const cvs = document.querySelector("#canvas");
+	cvs.style.backgroundColor = "white";
+	cvs.style.border = "2px solid black";
+const ctx = cvs.getContext('2d');
+const clearBtn = document.getElementById("clear-btn");
+const rollDice = document.getElementById("rollDice");
+
+class Dice{
+	constructor(){
+		this.roll = 2;
+		this.drawOptions=[
+		{result:1, coords:[{x:150, y: 80}]},
+		{result: 2, coords:[{x:75, y:40 },{x:200 ,y:80 }]},
+		{result: 3, coords:[{x:70, y:40},{x:145, y:70},{x:210, y:100},]}
+		];
+	}
+//generate number between 1-6	
+	roll(){
+		return Math.floor(Math.random()*6)+1;
+	}
+	trial(){
+		alert(this.roll);
+	};
+	draw(x,y){
+		ctx.beginPath();
+		ctx.arc(x,y,10,0,2*Math.PI,true);
+		ctx.fill();
+	}
+	paintDie(){
+	// scope issues cannot access this methods within filter forEach
+		let k = this.roll;
+		this.drawOptions.filter(function(i){
+			if(i.result==k){
+				i.coords.forEach(function(element){
+				document.write(`${element.x},${element.y}`);
+				console.log(this);
+				this.draw(element.x, element.y);
+		}).bind(this);	
+		}
+		}).bind(this);
+	};
+
+	};
+
+
+let die1 = new Dice();
+die1.trial();
+die1.paintDie();
+
+
+
+//die1.drawOptions.filter(function(x){console.log(x.result);});
+
+// die1.draw(70, 40);
+// die1.draw(145, 70);
+// die1.draw(210,100);
+
+
+//event handlers
+//clearBtn.addEventListener("click", clearButton//missing fn, false);
+//roll.addEventListener("click", main, false);
+
+
+
+
+</script>
+
+</body>
+</html>
